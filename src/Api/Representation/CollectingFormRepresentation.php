@@ -310,15 +310,15 @@ class CollectingFormRepresentation extends AbstractEntityRepresentation
                     'remote_ip' => (new RemoteAddress)->getIpAddress(),
                 ]);
             $form->add($element);
+        } else {
+            $form->add([
+                'type' => 'csrf',
+                'name' => sprintf('csrf_%s', $this->id()),
+                'options' => [
+                    'csrf_options' => ['timeout' => 3600],
+                ],
+            ]);
         }
-
-        $form->add([
-            'type' => 'csrf',
-            'name' => sprintf('csrf_%s', $this->id()),
-            'options' => [
-                'csrf_options' => ['timeout' => 3600],
-            ],
-        ]);
         $form->add([
             'type' => 'submit',
             'name' => 'submit',
